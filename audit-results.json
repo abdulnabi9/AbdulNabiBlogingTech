@@ -1,0 +1,9 @@
+{
+  "working": [
+    "/projects",
+    "/admin/login"
+  ],
+  "broken": [],
+  "consoleErrors": [],
+  "networkErrors": []
+}
