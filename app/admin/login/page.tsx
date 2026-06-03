@@ -17,16 +17,20 @@ export default function AdminLoginPage() {
     setLoading(true)
 
     const supabase = createClient()
-    const { error: authError } = await supabase.auth.signInWithPassword({
+    const { data, error: authError } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
 
     if (authError) {
-      console.error("Supabase Auth Error during admin login:", authError.message, authError.status, authError.name)
+      console.error("ADMIN LOGIN ERROR:", authError);
       setError(authError.message)
       setLoading(false)
       return
+    }
+
+    if (data?.user) {
+      console.log("ADMIN LOGIN SUCCESS, USER ID:", data.user.id);
     }
 
     router.push("/admin")

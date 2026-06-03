@@ -31,7 +31,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     .single()
 
   if (error) {
-    console.error(`Supabase Error in generateMetadata for blog ${slug}:`, error.message, error.code, error.details)
+    console.error("BLOG QUERY ERROR:", error);
+    // Don't throw in generateMetadata, just return empty so it doesn't crash the entire page generation,
+    // but the main page component will throw.
+  }
+
+  if (blog) {
+    console.log("BLOG COUNT (Metadata): 1");
   }
 
   if (!blog) return { title: "Post Not Found" }
@@ -77,7 +83,12 @@ export default async function BlogDetailPage({ params }: PageProps) {
     .single()
 
   if (error) {
-    console.error(`Supabase Error in BlogDetailPage for blog ${slug}:`, error.message, error.code, error.details)
+    console.error("BLOG QUERY ERROR:", error);
+    throw new Error(`Failed to fetch blog ${slug}: ${error.message}`);
+  }
+
+  if (blog) {
+    console.log("BLOG COUNT (Detail): 1");
   }
 
   if (!blog) notFound()

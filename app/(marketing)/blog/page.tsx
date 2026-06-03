@@ -42,7 +42,12 @@ export default async function BlogListPage() {
     .order("published_at", { ascending: false })
 
   if (error) {
-    console.error("Supabase Error fetching blogs in /blog:", error.message, error.code, error.details)
+    console.error("BLOG QUERY ERROR:", error);
+    throw new Error(`Failed to fetch blogs: ${error.message}`);
+  }
+
+  if (blogs) {
+    console.log("BLOG COUNT:", blogs.length);
   }
 
   return (

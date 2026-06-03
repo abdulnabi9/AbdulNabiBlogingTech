@@ -35,7 +35,11 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   if (error) {
-    console.error("Supabase Auth Error in middleware (getUser):", error.message, error.status, error.name)
+    console.error("MIDDLEWARE AUTH ERROR:", error);
+  }
+
+  if (user) {
+    console.log("MIDDLEWARE USER FOUND:", user.id);
   }
 
   return { supabaseResponse, user }
