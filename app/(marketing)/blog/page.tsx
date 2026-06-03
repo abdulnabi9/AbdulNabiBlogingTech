@@ -33,13 +33,17 @@ const breadcrumbSchema = {
 export default async function BlogListPage() {
   const supabase = await createClient()
 
-  const { data: blogs } = await supabase
+  const { data: blogs, error } = await supabase
     .from("blogs")
     .select(
       "id, title, slug, excerpt, reading_time, published_at, view_count, cover_image"
     )
     .eq("status", "published")
     .order("published_at", { ascending: false })
+
+  if (error) {
+    console.error("Supabase Error fetching blogs in /blog:", error.message, error.code, error.details)
+  }
 
   return (
     <main className="container mx-auto max-w-7xl py-16 px-4 md:px-8">

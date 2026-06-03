@@ -7,18 +7,27 @@ export const metadata = { title: "Dashboard" }
 export default async function AdminDashboardPage() {
   const supabase = await createClient()
 
-  // Fetch all data in parallel
   const [
-    { data: blogs },
-    { data: projects },
-    { data: messages },
-    { data: subscribers }
+    blogsResponse,
+    projectsResponse,
+    messagesResponse,
+    subscribersResponse
   ] = await Promise.all([
     supabase.from("blogs").select("id, title, status, view_count, created_at").order("created_at", { ascending: false }),
     supabase.from("projects").select("id, title, featured, created_at").order("created_at", { ascending: false }),
     supabase.from("contact_messages").select("id, name, email, created_at").order("created_at", { ascending: false }),
     supabase.from("newsletter_subscribers").select("id, email, subscribed_at").order("subscribed_at", { ascending: false })
   ])
+
+  if (blogsResponse.error) console.error("Supabase Error fetching blogs in Dashboard:", blogsResponse.error.message, blogsResponse.error.code)
+  if (projectsResponse.error) console.error("Supabase Error fetching projects in Dashboard:", projectsResponse.error.message, projectsResponse.error.code)
+  if (messagesResponse.error) console.error("Supabase Error fetching messages in Dashboard:", messagesResponse.error.message, messagesResponse.error.code)
+  if (subscribersResponse.error) console.error("Supabase Error fetching subscribers in Dashboard:", subscribersResponse.error.message, subscribersResponse.error.code)
+
+  const blogs = blogsResponse.data
+  const projects = projectsResponse.data
+  const messages = messagesResponse.data
+  const subscribers = subscribersResponse.data
 
   const totalBlogs = blogs?.length ?? 0
   const publishedBlogs = blogs?.filter((b) => b.status === "published").length ?? 0

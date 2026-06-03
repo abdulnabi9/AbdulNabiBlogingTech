@@ -23,12 +23,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const supabase = await createClient()
 
   // Use select('*') so it doesn't crash if keywords/author aren't in the DB yet
-  const { data: blog } = await supabase
+  const { data: blog, error } = await supabase
     .from("blogs")
     .select("*")
     .eq("slug", slug)
     .eq("status", "published")
     .single()
+
+  if (error) {
+    console.error(`Supabase Error in generateMetadata for blog ${slug}:`, error.message, error.code, error.details)
+  }
 
   if (!blog) return { title: "Post Not Found" }
 
@@ -65,12 +69,16 @@ export default async function BlogDetailPage({ params }: PageProps) {
   const { slug } = await params
   const supabase = await createClient()
 
-  const { data: blog } = await supabase
+  const { data: blog, error } = await supabase
     .from("blogs")
     .select("*")
     .eq("slug", slug)
     .eq("status", "published")
     .single()
+
+  if (error) {
+    console.error(`Supabase Error in BlogDetailPage for blog ${slug}:`, error.message, error.code, error.details)
+  }
 
   if (!blog) notFound()
 

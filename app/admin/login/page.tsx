@@ -23,6 +23,7 @@ export default function AdminLoginPage() {
     })
 
     if (authError) {
+      console.error("Supabase Auth Error during admin login:", authError.message, authError.status, authError.name)
       setError(authError.message)
       setLoading(false)
       return

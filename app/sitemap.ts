@@ -6,10 +6,14 @@ const BASE_URL = "https://abdulnabi.in"
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = await createClient()
 
-  const { data: blogs } = await supabase
+  const { data: blogs, error } = await supabase
     .from("blogs")
     .select("slug, published_at, updated_at")
     .eq("status", "published")
+
+  if (error) {
+    console.error("Supabase Error fetching blogs in sitemap:", error.message, error.code, error.details)
+  }
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
