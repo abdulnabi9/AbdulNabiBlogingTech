@@ -28,12 +28,12 @@ export function ProjectsSection() {
 
                     <div className="mt-4 space-y-2 rounded-lg bg-muted/50 p-3">
                       <div>
-                        <p className="font-mono text-xs font-medium text-brand">Problem</p>
-                        <p className="mt-0.5 text-xs text-muted-foreground">{project.problem}</p>
+                        <p className="font-mono text-xs font-medium text-brand">Key Features</p>
+                        <p className="mt-0.5 text-xs text-muted-foreground">{project.features}</p>
                       </div>
                       <div>
-                        <p className="font-mono text-xs font-medium text-foreground">Solution</p>
-                        <p className="mt-0.5 text-xs text-muted-foreground">{project.solution}</p>
+                        <p className="font-mono text-xs font-medium text-foreground">Business Impact</p>
+                        <p className="mt-0.5 text-xs text-muted-foreground">{project.impact}</p>
                       </div>
                     </div>
 
@@ -49,15 +49,25 @@ export function ProjectsSection() {
                     </div>
                   </div>
 
-                  <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
+                  <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-border pt-4">
                     {project.liveUrl && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-medium text-brand hover:underline"
+                        className="inline-flex items-center gap-1 rounded bg-brand/10 px-2 py-1 text-xs font-medium text-brand hover:bg-brand/20 transition-colors"
                       >
-                        Live <ArrowUpRight size={12} />
+                        Web <ArrowUpRight size={12} />
+                      </a>
+                    )}
+                    {project.playStoreUrl && (
+                      <a
+                        href={project.playStoreUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 rounded bg-emerald-500/10 px-2 py-1 text-xs font-medium text-emerald-600 hover:bg-emerald-500/20 transition-colors dark:text-emerald-400"
+                      >
+                        Play Store <ArrowUpRight size={12} />
                       </a>
                     )}
                     {project.githubUrl && (

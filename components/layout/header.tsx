@@ -2,22 +2,24 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { Menu, X } from "lucide-react"
+import { Github, Instagram, Linkedin, Mail } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ThemeToggle } from "@/components/shared/theme-toggle"
+import { useContactModal } from "@/components/providers"
+import { siteConfig } from "@/content/data/site"
 import { cn } from "@/lib/utils"
-import { slideDown } from "@/lib/animations"
 
 const navLinks = [
-  { href: "/#projects", label: "Work" },
+  { href: "/", label: "Home" },
   { href: "/#experience", label: "Experience" },
+  { href: "/#projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
-  { href: "/#contact", label: "Contact" },
 ]
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { openModal } = useContactModal()
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 60)
@@ -38,10 +40,10 @@ export function Header() {
         {/* Logo */}
         <Link
           href="/"
-          className="font-mono text-sm font-semibold tracking-tight text-foreground"
+          className="font-mono text-sm font-semibold tracking-tight text-foreground hover:text-brand transition-colors"
           aria-label="Abdul Nabi — home"
         >
-          AN
+          Abdul Nabi
         </Link>
 
         {/* Desktop nav */}
@@ -50,22 +52,22 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={openModal}
+            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Contact
+          </button>
         </nav>
 
         {/* Desktop actions */}
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-4 md:flex">
           <ThemeToggle />
-          <Link
-            href="/#contact"
-            className="inline-flex h-8 items-center rounded-md bg-foreground px-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
-          >
-            Hire Me
-          </Link>
         </div>
 
         {/* Mobile actions */}
@@ -75,9 +77,22 @@ export function Header() {
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="flex h-11 w-11 items-center justify-center rounded-md text-muted-foreground hover:text-foreground"
+            className="relative z-50 flex h-11 w-11 items-center justify-center text-muted-foreground hover:text-foreground"
           >
-            {menuOpen ? <X size={18} /> : <Menu size={18} />}
+            <div className="flex h-4 w-5 flex-col justify-between">
+              <motion.span
+                animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                className="h-[2px] w-full rounded-full bg-current transition-transform duration-300"
+              />
+              <motion.span
+                animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+                className="h-[2px] w-full rounded-full bg-current transition-opacity duration-300"
+              />
+              <motion.span
+                animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                className="h-[2px] w-full rounded-full bg-current transition-transform duration-300"
+              />
+            </div>
           </button>
         </div>
       </div>
@@ -86,33 +101,54 @@ export function Header() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            variants={slideDown}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="border-b border-border bg-background/95 backdrop-blur-md md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 flex flex-col bg-background md:hidden"
           >
-            <nav className="content-width flex flex-col gap-1 py-4" aria-label="Mobile navigation">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+            <div className="flex flex-1 flex-col justify-center px-8">
+              <nav className="flex flex-col gap-8" aria-label="Mobile navigation">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-brand"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                <button
+                  onClick={() => {
+                    setMenuOpen(false)
+                    openModal()
+                  }}
+                  className="text-left text-4xl font-semibold tracking-tight text-foreground transition-colors hover:text-brand"
                 >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="mt-2 border-t border-border pt-2">
-                <Link
-                  href="/#contact"
-                  onClick={() => setMenuOpen(false)}
-                  className="block rounded-md bg-foreground px-3 py-2 text-center text-sm font-medium text-background"
-                >
-                  Hire Me
-                </Link>
+                  Contact
+                </button>
+              </nav>
+
+              <div className="mt-16 flex items-center gap-6 text-muted-foreground">
+                <a href={siteConfig.github} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-foreground">
+                  <span className="sr-only">GitHub</span>
+                  <Github size={24} />
+                </a>
+                <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-foreground">
+                  <span className="sr-only">LinkedIn</span>
+                  <Linkedin size={24} />
+                </a>
+                <a href="https://www.instagram.com/abdulnabi.in" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-foreground">
+                  <span className="sr-only">Instagram</span>
+                  <Instagram size={24} />
+                </a>
+                <button onClick={openModal} className="transition-colors hover:text-foreground">
+                  <span className="sr-only">Email</span>
+                  <Mail size={24} />
+                </button>
               </div>
-            </nav>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

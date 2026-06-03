@@ -2,17 +2,14 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, BookOpen } from "lucide-react"
+import { ArrowRight, Github, Instagram, Linkedin, Mail } from "lucide-react"
 import { fadeUp, stagger } from "@/lib/animations"
-
-const trustSignals = [
-  "3+ Years Experience",
-  "Android Developer",
-  "AI Builder",
-  "SaaS Founder",
-]
+import { useContactModal } from "@/components/providers"
+import { siteConfig } from "@/content/data/site"
 
 export function HeroSection() {
+  const { openModal } = useContactModal()
+
   return (
     <section
       aria-label="Introduction"
@@ -74,18 +71,22 @@ export function HeroSection() {
           >
             Android Engineer
             <br />
-            <span className="text-zinc-400">Building AI-Powered</span>
-            <br />
-            <span className="text-zinc-400">Products</span>
+            <span className="text-zinc-400">Building Real-World Mobile Applications</span>
           </motion.h1>
 
           {/* Subheadline */}
           <motion.p
             variants={fadeUp}
-            className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg"
+            className="mt-4 font-mono text-sm tracking-wide text-zinc-300 sm:text-base"
           >
-            I build Android apps, AI agents, and SaaS products that solve
-            real-world business problems.
+            3+ Years Experience • Jetpack Compose • Kotlin • AI Enthusiast
+          </motion.p>
+          
+          <motion.p
+            variants={fadeUp}
+            className="mt-4 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg"
+          >
+            I build scalable Android applications used in production and actively explore modern AI technologies including LLMs, RAG, CAG, and Agentic Workflows.
           </motion.p>
 
           {/* CTAs */}
@@ -100,29 +101,36 @@ export function HeroSection() {
               View Projects
               <ArrowRight size={15} aria-hidden />
             </Link>
-            <Link
-              href="/blog"
-              className="inline-flex h-11 items-center gap-2 rounded-md border border-zinc-700 px-5 text-sm font-medium text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+            <button
+              onClick={openModal}
+              className="inline-flex h-11 items-center gap-2 rounded-md border border-transparent px-5 text-sm font-medium text-zinc-400 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
             >
-              <BookOpen size={15} aria-hidden />
-              Read Blog
-            </Link>
+              Contact Me
+            </button>
           </motion.div>
 
-          {/* Trust signals */}
+          {/* Social Icons */}
           <motion.div
             variants={fadeUp}
-            className="mt-12 flex flex-wrap gap-2"
-            aria-label="Credentials"
+            className="mt-10 flex items-center gap-4 text-zinc-500"
+            aria-label="Social Links"
           >
-            {trustSignals.map((signal) => (
-              <span
-                key={signal}
-                className="rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 font-mono text-xs text-zinc-400"
-              >
-                {signal}
-              </span>
-            ))}
+            <a href={siteConfig.github} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
+              <span className="sr-only">GitHub</span>
+              <Github size={22} />
+            </a>
+            <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
+              <span className="sr-only">LinkedIn</span>
+              <Linkedin size={22} />
+            </a>
+            <a href="https://www.instagram.com/abdulnabi.in" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
+              <span className="sr-only">Instagram</span>
+              <Instagram size={22} />
+            </a>
+            <button onClick={openModal} className="transition-colors hover:text-white">
+              <span className="sr-only">Email</span>
+              <Mail size={22} />
+            </button>
           </motion.div>
         </motion.div>
       </div>

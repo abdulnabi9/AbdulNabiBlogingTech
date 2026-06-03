@@ -1,115 +1,104 @@
-import { ArrowUpRight, CheckCircle } from "lucide-react"
+"use client"
+
+import { ArrowUpRight } from "lucide-react"
 import { MotionSection, MotionItem } from "@/components/shared/motion-section"
 
-const benefits = [
-  "Appointment scheduling & reminders",
-  "Patient records & history",
-  "Billing & invoicing",
-  "AI-powered analytics dashboard",
-  "Multi-clinic support",
-  "Android & web apps",
+const techStack = [
+  "Next.js",
+  "TypeScript",
+  "Supabase",
+  "Tailwind CSS",
+  "PostgreSQL",
 ]
 
-const anclinicStats = [
-  { value: "500+", label: "Active Clinics" },
-  { value: "98%", label: "Uptime" },
-  { value: "4.9★", label: "App Rating" },
+const features = [
+  "Patient Management",
+  "Appointments",
+  "Medical Records",
+  "Multi-Tenant",
+  "Responsive Design",
 ]
 
 export function AnclinicShowcase() {
   return (
-    <section id="anclinic" className="section-padding bg-zinc-950">
+    <section className="section-padding border-b border-border bg-muted/30">
       <div className="content-width">
-        <MotionSection>
-          <div className="overflow-hidden rounded-2xl border border-zinc-800">
-            {/* Top accent */}
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-brand to-transparent" />
-
-            <div className="p-8 lg:p-12">
-              <MotionItem>
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 font-mono text-xs text-brand">
-                    Flagship Product
-                  </span>
-                  <span className="font-mono text-xs text-zinc-500">anclinic.in</span>
-                </div>
-              </MotionItem>
-
-              <div className="mt-6 grid gap-12 lg:grid-cols-2">
-                {/* Left */}
-                <div>
-                  <MotionItem>
-                    <h2 className="text-4xl font-bold tracking-tight text-white lg:text-5xl">
+        <MotionSection className="mx-auto max-w-5xl">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
+            <div className="grid gap-8 p-8 md:grid-cols-2 md:p-12 items-center">
+              
+              {/* Left Side: Content */}
+              <div className="flex flex-col justify-center">
+                <MotionItem>
+                  <div className="flex items-center gap-3">
+                    <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 font-mono text-xs font-medium text-brand">
                       ANCLINIC
-                    </h2>
-                    <p className="mt-2 text-lg text-zinc-400">
-                      The complete operating system for modern clinics.
-                    </p>
-                    <p className="mt-4 text-sm leading-relaxed text-zinc-500">
-                      Built from scratch after seeing clinic owners drown in paperwork. ANCLINIC
-                      handles appointments, billing, patient records, and analytics — so doctors can
-                      focus on patients, not admin.
-                    </p>
-                  </MotionItem>
+                    </span>
+                    <span className="font-mono text-xs text-muted-foreground tracking-wide">
+                      Clinic Management Platform
+                    </span>
+                  </div>
+                </MotionItem>
 
-                  <MotionItem>
-                    <ul className="mt-6 space-y-2">
-                      {benefits.map((b) => (
-                        <li key={b} className="flex items-center gap-2 text-sm text-zinc-400">
-                          <CheckCircle size={14} className="flex-shrink-0 text-brand" />
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                  </MotionItem>
+                <MotionItem>
+                  <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+                    A modern healthcare management platform built to streamline patient records, appointment scheduling, and clinic operations through a secure and responsive web experience.
+                  </p>
+                </MotionItem>
 
-                  <MotionItem>
-                    <div className="mt-8 flex flex-wrap gap-3">
-                      <a
-                        href="https://anclinic.in"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex h-10 items-center gap-2 rounded-md bg-brand px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-                      >
-                        Visit ANCLINIC <ArrowUpRight size={14} />
-                      </a>
-                      <a
-                        href="https://anclinic.in/demo"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex h-10 items-center gap-2 rounded-md border border-zinc-700 px-5 text-sm font-medium text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white"
-                      >
-                        Watch Demo
-                      </a>
-                    </div>
-                  </MotionItem>
-                </div>
+                <MotionItem>
+                  <div className="mt-8">
+                    <a
+                      href="https://www.anclinic.site"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-11 items-center gap-2 rounded-md bg-brand px-6 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    >
+                      Visit ANCLINIC <ArrowUpRight size={16} />
+                    </a>
+                  </div>
+                </MotionItem>
+              </div>
 
-                {/* Right — stats + screenshot placeholder */}
-                <div className="flex flex-col gap-6">
-                  <MotionItem>
-                    <div className="grid grid-cols-3 gap-4">
-                      {anclinicStats.map((s) => (
-                        <div
-                          key={s.label}
-                          className="rounded-lg border border-zinc-800 bg-zinc-900 p-4 text-center"
+              {/* Right Side: Tech & Features */}
+              <div className="flex flex-col gap-8 rounded-xl bg-background p-6 md:p-8 border border-border/50">
+                
+                <MotionItem>
+                  <div>
+                    <h3 className="font-mono text-xs font-semibold text-foreground uppercase tracking-wider mb-4">
+                      Tech Stack
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-md border border-border bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground"
                         >
-                          <p className="text-2xl font-bold text-white">{s.value}</p>
-                          <p className="mt-1 text-xs text-zinc-500">{s.label}</p>
-                        </div>
+                          {tech}
+                        </span>
                       ))}
                     </div>
-                  </MotionItem>
+                  </div>
+                </MotionItem>
 
-                  <MotionItem>
-                    {/* Screenshot placeholder — replace with real screenshot */}
-                    <div className="flex aspect-video items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900">
-                      <p className="font-mono text-xs text-zinc-600">
-                        Dashboard screenshot
-                      </p>
+                <MotionItem>
+                  <div>
+                    <h3 className="font-mono text-xs font-semibold text-foreground uppercase tracking-wider mb-4">
+                      Key Features
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {features.map((feature) => (
+                        <span
+                          key={feature}
+                          className="rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400"
+                        >
+                          {feature}
+                        </span>
+                      ))}
                     </div>
-                  </MotionItem>
-                </div>
+                  </div>
+                </MotionItem>
+
               </div>
             </div>
           </div>

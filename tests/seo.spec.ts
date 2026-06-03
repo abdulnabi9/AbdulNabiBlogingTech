@@ -45,4 +45,10 @@ test.describe("SEO Audit Verification", () => {
     }
     expect(hasBreadcrumb).toBeTruthy()
   })
+
+  test("Favicon loads correctly", async ({ page }) => {
+    await page.goto(BASE_URL)
+    const favicon = page.locator('link[rel="icon"]')
+    await expect(favicon).toHaveAttribute("href", "/favicon.ico")
+  })
 })
