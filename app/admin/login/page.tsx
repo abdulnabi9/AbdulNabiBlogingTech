@@ -30,6 +30,7 @@ export default function AdminLoginPage() {
     }
 
     if (data?.user) {
+      // eslint-disable-next-line no-console
       console.log("ADMIN LOGIN SUCCESS, USER ID:", data.user.id);
     }
 

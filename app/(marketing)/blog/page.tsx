@@ -47,6 +47,7 @@ export default async function BlogListPage() {
   }
 
   if (blogs) {
+    // eslint-disable-next-line no-console
     console.log("BLOG COUNT:", blogs.length);
   }
 

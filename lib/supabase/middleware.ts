@@ -39,6 +39,7 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (user) {
+    // eslint-disable-next-line no-console
     console.log("MIDDLEWARE USER FOUND:", user.id);
   }
 

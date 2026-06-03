@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   if (blog) {
+    // eslint-disable-next-line no-console
     console.log("BLOG COUNT (Metadata): 1");
   }
 
@@ -88,6 +89,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
   }
 
   if (blog) {
+    // eslint-disable-next-line no-console
     console.log("BLOG COUNT (Detail): 1");
   }
 
